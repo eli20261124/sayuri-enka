@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* DESIGN.md v2 palette */
+  --sayuri-paper: #e6e1da;        /* background */
+  --sayuri-surface: #dfdcd6;      /* card surface */
+  --sayuri-ink: #111827;          /* text-primary */
+  --sayuri-muted: #4b5563;        /* text-secondary */
+  --sayuri-primary: #fed7aa;      /* primary orange-peach */
+  --sayuri-accent: #ffedd5;       /* accent light orange */
+  --sayuri-border: #e5e7eb;       /* border */
+
+  /* Semantic aliases — kept for backward-compat with existing components */
+  --sayuri-blue: #fed7aa;         /* ← remapped to primary */
+  --sayuri-blue-weak: #ffedd5;    /* ← remapped to accent */
+
+  /* Unchanged */
+  --sayuri-red: #a61022;          /* Hanko stamps (red seal) */
+
+  --background: var(--sayuri-paper);
+  --foreground: var(--sayuri-ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-jb-mono), "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+  --font-serif: var(--font-newsreader), "Hiragino Mincho ProN", "Yu Mincho", "Times New Roman", serif;
+  --font-mono: var(--font-jb-mono), "JetBrains Mono", "Fira Code", monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  text-rendering: geometricPrecision;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+/* ─── Layered Paper card ───────────────────────────────────────────────────── */
+.paper-layer {
+  background: var(--sayuri-surface);
+  border: 1px solid var(--sayuri-border);
+  padding: 1.5rem;
+}
+
+/* ─── Washi paper grain overlay ───────────────────────────────────────────── */
+/*  Rendered as a fixed, non-interactive layer via a data-URI SVG noise filter */
+.washi-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.048;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 320px 320px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }
