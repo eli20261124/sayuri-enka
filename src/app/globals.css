@@ -10,9 +10,10 @@
   --sayuri-accent: #ffedd5;       /* accent light orange */
   --sayuri-border: #e5e7eb;       /* border */
 
-  /* Semantic aliases — kept for backward-compat with existing components */
-  --sayuri-blue: #fed7aa;         /* ← remapped to primary */
-  --sayuri-blue-weak: #ffedd5;    /* ← remapped to accent */
+  /* Map marker colours */
+  --sayuri-blue: #2c3e50;         /* Deep Indigo — inactive markers */
+  --sayuri-blue-hover: #4a6274;   /* Lighter indigo — hover glow */
+  --sayuri-blue-weak: #e8ecef;    /* Very light — hover pulse ring */
 
   /* Unchanged */
   --sayuri-red: #a61022;          /* Hanko stamps (red seal) */

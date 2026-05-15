@@ -43,7 +43,7 @@ export function JapanMap({ regions, selectedRegion, onSelect }: Props) {
           const pos = markerPositions[region.id];
           const active = selectedRegion === region.id;
           const color = active ? "var(--sayuri-red)" : "var(--sayuri-blue)";
-          const opacity = active ? 1 : 0.82;
+          const opacity = active ? 1 : 0.9;
 
           return (
             <g key={region.id}>
@@ -155,7 +155,7 @@ export function JapanMap({ regions, selectedRegion, onSelect }: Props) {
             type="button"
             onClick={() => onSelect(region.id)}
             aria-label={`Open ${region.title}`}
-            className="absolute h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-transparent bg-transparent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--sayuri-blue)]"
+            className="absolute h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-transparent bg-transparent transition-[filter] duration-150 hover:[filter:drop-shadow(0_0_6px_var(--sayuri-blue-hover))] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--sayuri-blue)]"
             style={{
               left: `${(pos.x / 420) * 100}%`,
               top: `${(pos.y / 700) * 100}%`,
