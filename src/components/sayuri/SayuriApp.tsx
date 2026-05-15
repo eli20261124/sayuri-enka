@@ -11,6 +11,7 @@ import {
   teresaTeng,
   themeBlocks,
   type Language,
+  type RegionContent,
   type RegionKey,
   uiCopy,
   yonanukiScale,
@@ -35,6 +36,82 @@ const REGION_HANKO: Record<string, string> = {
   tokyo: "東京", osaka: "大阪", chugoku: "山陽",
   shikoku: "四国", kyushu: "九州", okinawa: "沖縄",
 };
+
+// ── Grouped Region Grid ───────────────────────────────────────────────────
+type RegionGridProps = {
+  copy: typeof uiCopy[Language];
+  regions: RegionContent[];
+  hankoVisible: Record<string, boolean>;
+  onSelect: (id: RegionKey) => void;
+};
+
+function RegionGrid({ copy, regions, hankoVisible, onSelect }: RegionGridProps) {
+  const [activeTab, setActiveTab] = useState(0);
+  const groups = copy.regionGroups;
+  const activeGroup = groups[activeTab];
+  const groupRegions = regions.filter((r) => (activeGroup.ids as readonly string[]).includes(r.id));
+
+  return (
+    <section>
+      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--sayuri-muted)] mb-4">
+        Regional Landscape
+      </p>
+      {/* Tab bar */}
+      <div className="flex gap-0 border border-[var(--sayuri-border)] w-fit mb-6 overflow-hidden">
+        {groups.map((group, idx) => (
+          <button
+            key={group.key}
+            type="button"
+            onClick={() => setActiveTab(idx)}
+            className="px-4 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors"
+            style={{
+              background: activeTab === idx ? "var(--sayuri-primary)" : "transparent",
+              color: activeTab === idx ? "var(--sayuri-ink)" : "var(--sayuri-muted)",
+              borderRight: idx < groups.length - 1 ? "1px solid var(--sayuri-border)" : "none",
+            }}
+            aria-selected={activeTab === idx}
+          >
+            {group.label}
+          </button>
+        ))}
+      </div>
+      {/* Region cards for active tab */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {groupRegions.map((region) => (
+          <motion.article
+            key={region.id}
+            id={`region-${region.id}`}
+            data-hanko-id={region.id}
+            className="relative cursor-pointer bg-[var(--sayuri-surface)] border border-[var(--sayuri-border)] p-5"
+            style={{
+              boxShadow: "2px 2px 0 var(--sayuri-border), 4px 4px 0 rgba(229,231,235,0.55)",
+              willChange: "transform",
+            }}
+            whileHover={{
+              y: -2,
+              x: -2,
+              boxShadow: "4px 4px 0 var(--sayuri-border), 8px 8px 0 rgba(229,231,235,0.55)",
+            }}
+            transition={{ type: "tween", ease: "easeOut", duration: 0.14 }}
+            onClick={() => onSelect(region.id)}
+          >
+            <HankoStamp
+              label={REGION_HANKO[region.id] ?? region.id}
+              visible={!!hankoVisible[region.id]}
+              className="absolute top-3 right-3"
+            />
+            <h3 className="font-serif text-lg leading-snug text-[var(--sayuri-ink)]">
+              {region.title}
+            </h3>
+            <p className="mt-1 font-mono text-[11px] text-[var(--sayuri-muted)]">
+              {region.subtitle}
+            </p>
+          </motion.article>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 export function SayuriApp() {
   const [language, setLanguage] = useState<Language>("zh");
@@ -161,47 +238,13 @@ export function SayuriApp() {
           onClose={() => setSelectedRegion(null)}
         />
 
-        {/* ── §2 Region Bento Grid (9 cards, Layered Paper) ───────────────── */}
-        <section>
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--sayuri-muted)] mb-6">
-            Regional Landscape
-          </p>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {regions.map((region) => (
-              <motion.article
-                key={region.id}
-                id={`region-${region.id}`}
-                data-hanko-id={region.id}
-                className="relative cursor-pointer bg-[var(--sayuri-surface)] border border-[var(--sayuri-border)] p-5"
-                style={{
-                  boxShadow: "2px 2px 0 var(--sayuri-border), 4px 4px 0 rgba(229,231,235,0.55)",
-                  willChange: "transform",
-                }}
-                whileHover={{
-                  y: -2,
-                  x: -2,
-                  boxShadow: "4px 4px 0 var(--sayuri-border), 8px 8px 0 rgba(229,231,235,0.55)",
-                }}
-                transition={{ type: "tween", ease: "easeOut", duration: 0.14 }}
-                onClick={() => {
-                  setSelectedRegion(region.id);
-                }}
-              >
-                <HankoStamp
-                  label={REGION_HANKO[region.id] ?? region.id}
-                  visible={!!hankoVisible[region.id]}
-                  className="absolute top-3 right-3"
-                />
-                <h3 className="font-serif text-lg leading-snug text-[var(--sayuri-ink)]">
-                  {region.title}
-                </h3>
-                <p className="mt-1 font-mono text-[11px] text-[var(--sayuri-muted)]">
-                  {region.subtitle}
-                </p>
-              </motion.article>
-            ))}
-          </div>
-        </section>
+        {/* ── §2 Region Grid — geographically grouped with tabs ───────────── */}
+        <RegionGrid
+          copy={copy}
+          regions={regions}
+          hankoVisible={hankoVisible}
+          onSelect={(id) => setSelectedRegion(id)}
+        />
 
         {/* ── §3 Thematic Chapters (Vertical Storytelling) ───────────────── */}
         <section className="space-y-16">

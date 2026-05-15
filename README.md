@@ -101,7 +101,6 @@ npm install
 
 # 啟動開發伺服器
 npm run dev
-# → http://localhost:3000
 
 # 靜態匯出（部署用）
 npm run build

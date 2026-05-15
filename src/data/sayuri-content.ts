@@ -73,6 +73,11 @@ export const uiCopy = {
       "sea-obsession": "第三章 海峽執念",
       "velvet-fusion": "第四章 天鵝絨融合",
     },
+    regionGroups: [
+      { key: "north-east", label: "北・東日本", ids: ["hokkaido", "tohoku", "aomori", "tokyo"] },
+      { key: "west",       label: "西日本",    ids: ["osaka", "chugoku", "shikoku"] },
+      { key: "south",      label: "南日本",    ids: ["kyushu", "okinawa"] },
+    ],
   },
   en: {
     appTitle: "Songs of the Nine Lands: The Enka Landscape of Yamato",
@@ -101,6 +106,11 @@ export const uiCopy = {
       "sea-obsession": "Ch.3 Sea Obsession",
       "velvet-fusion": "Ch.4 Velvet Fusion",
     },
+    regionGroups: [
+      { key: "north-east", label: "North & East Japan", ids: ["hokkaido", "tohoku", "aomori", "tokyo"] },
+      { key: "west",       label: "West Japan",         ids: ["osaka", "chugoku", "shikoku"] },
+      { key: "south",      label: "South Japan",        ids: ["kyushu", "okinawa"] },
+    ],
   },
   jp: {
     appTitle: "《九地の歌：大和の魂の演歌版図》",
@@ -129,6 +139,11 @@ export const uiCopy = {
       "sea-obsession": "第三章 海峡への執念",
       "velvet-fusion": "第四章 ヴェルヴェット融合",
     },
+    regionGroups: [
+      { key: "north-east", label: "北・東日本", ids: ["hokkaido", "tohoku", "aomori", "tokyo"] },
+      { key: "west",       label: "西日本",    ids: ["osaka", "chugoku", "shikoku"] },
+      { key: "south",      label: "南日本",    ids: ["kyushu", "okinawa"] },
+    ],
   },
 } as const;
 

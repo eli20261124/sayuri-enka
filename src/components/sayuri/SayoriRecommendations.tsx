@@ -166,13 +166,13 @@ export function SayoriRecommendations() {
                   <th className="pb-3 pr-6 text-left font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--sayuri-muted)] whitespace-nowrap">
                     歌手
                   </th>
-                  <th className="pb-3 pr-6 text-left font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--sayuri-muted)] whitespace-nowrap">
+                  <th className="pb-3 pr-6 text-left font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--sayuri-muted)] whitespace-nowrap hidden sm:table-cell">
                     詞曲
                   </th>
-                  <th className="pb-3 pr-6 text-left font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--sayuri-muted)] whitespace-nowrap">
+                  <th className="pb-3 pr-6 text-left font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--sayuri-muted)] hidden sm:table-cell">
                     年份
                   </th>
-                  <th className="pb-3 text-left font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--sayuri-muted)]">
+                  <th className="pb-3 text-left font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--sayuri-muted)] hidden lg:table-cell">
                     推薦理由
                   </th>
                 </tr>
@@ -214,13 +214,13 @@ export function SayoriRecommendations() {
                     <td className="py-4 pr-6 font-serif text-[var(--sayuri-ink)] align-top whitespace-nowrap">
                       {song.artist}
                     </td>
-                    <td className="py-4 pr-6 font-mono text-[11px] text-[var(--sayuri-muted)] align-top whitespace-nowrap">
+                    <td className="py-4 pr-6 font-mono text-[11px] text-[var(--sayuri-muted)] align-top whitespace-nowrap hidden sm:table-cell">
                       {song.lyricistComposer}
                     </td>
-                    <td className="py-4 pr-6 font-mono text-[11px] text-[var(--sayuri-muted)] align-top">
+                    <td className="py-4 pr-6 font-mono text-[11px] text-[var(--sayuri-muted)] align-top hidden sm:table-cell">
                       {song.year}
                     </td>
-                    <td className="py-4 font-serif text-[13px] leading-6 text-[var(--sayuri-ink)] align-top max-w-xs">
+                    <td className="py-4 font-serif text-[13px] leading-6 text-[var(--sayuri-ink)] align-top max-w-xs hidden lg:table-cell">
                       {song.reason}
                     </td>
                   </motion.tr>
