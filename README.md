@@ -111,7 +111,27 @@ npm run build
 
 ## 部署
 
-此專案配置為 GitHub Pages 靜態匯出。推送至 `main` 分支後，GitHub Actions 將自動建置並部署。
+### Cloudflare Pages（推薦）
+
+此專案支援以靜態匯出部署到 Cloudflare Pages。
+
+Cloudflare Pages 建議設定：
+
+- Framework preset: `None`
+- Build command: `npm run build:cloudflare`
+- Build output directory: `out`
+- Node.js version: `20`
+
+部署流程：
+
+1. 將此 repo push 到 GitHub。
+2. 到 Cloudflare Dashboard -> Workers & Pages -> Create application -> Pages -> Connect to Git。
+3. 選擇此 repo，套用上述 build 設定後部署。
+4. 首次部署完成後，Cloudflare 會提供 `*.pages.dev` 網址，可直接瀏覽網站。
+
+### GitHub Pages（保留）
+
+此專案也保留 GitHub Pages 靜態匯出流程。推送至 `main` 分支後，GitHub Actions 將自動建置並部署。
 
 Live URL: **https://eli20261124.github.io/sayuri-enka/**
 

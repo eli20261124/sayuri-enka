@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:cloudflare": "DEPLOY_TARGET=cloudflare next build",
+    "build:github": "DEPLOY_TARGET=github next build",
     "start": "next start",
     "lint": "eslint"
   },
